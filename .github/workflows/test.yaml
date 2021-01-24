@@ -1,33 +1,26 @@
-name: test
+name: Github JD-sign bot
 
 on:
-    workflow_dispatch:
     push:
         branches:
             - main
     schedule:
-        - cron: "0 18 * * *"
-    watch:
-        types: [started]
-    repository_dispatch:
-        types: jd_crazy_joy_coin
-
+        - cron: '00 23 * * *'
 jobs:
     build:
         runs-on: ubuntu-latest
+
         steps:
-            - name: 拉取代码
+            - name: Checkout codes
               uses: actions/checkout@v2
             - name: Use Node.js
               uses: actions/setup-node@v1
               with:
-                  node-version: "12.x"
-            - name: 安装依赖包
-              run: |
-                  npm install
-            - name: "运行【京东疯狂JOY挂机】"
-              run: |
-                  node jd_crazy_joy_coin.js
+                node-version: '12.x'
+            - name: Run app
+              run: npm install
+            - run: node jd_crazy_joy_coin.js
               env:
                 JD_COOKIE: ${{ secrets.JD_COOKIE }}
-                
+                JD_COOKIE_2: ${{ secrets.JD_COOKIE_2 }} 
+                PUSH_KEY: ${{ secrets.PUSH_KEY }}
