@@ -1,6 +1,7 @@
 name: test
 
 on:
+    workflow_dispatch:
     push:
         branches:
             - main
@@ -14,7 +15,6 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-        if: github.event.repository.owner.id == github.event.sender.id
         steps:
             - name: 拉取代码
               uses: actions/checkout@v2
