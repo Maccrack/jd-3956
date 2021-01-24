@@ -1,7 +1,9 @@
 name: test
 
 on:
-    workflow_dispatch:
+    push:
+        branches:
+            - main
     schedule:
         - cron: "0 18 * * *"
     watch:
